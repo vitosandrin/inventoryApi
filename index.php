@@ -22,6 +22,6 @@ Database::config(
     getenv('DB_DRIVER'),
 );
 
-$products = Product::getProduct();
+$product = Product::getProduct();
 
-print_r($products);
+print_r($product);
