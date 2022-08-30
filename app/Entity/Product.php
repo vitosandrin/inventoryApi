@@ -50,9 +50,9 @@ class Product
      * @param string $upEstoque - $CicIndUpdE
      * @return Product
      */
-    public static function getProduct($CicCodERP)
+    public static function getProduct()
     {
-        return (new Database('dbo.TRN699'))->select('id = '.$CicCodERP)
+        return (new Database('dbo.TRN699'))->selectOnly()
             ->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 }

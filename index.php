@@ -22,6 +22,6 @@ Database::config(
     getenv('DB_DRIVER'),
 );
 
-$products = Product::getProduct($_GET['CicCodERP']);
+$products = Product::getProduct();
 
 print_r($products);

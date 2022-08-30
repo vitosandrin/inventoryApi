@@ -48,7 +48,7 @@ class Database
      * @var PDO
      */
     private $connection;
-    
+
     /**
      * Nome da tabela a ser manipulada  
      * @var string
@@ -91,7 +91,7 @@ class Database
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
         } catch (PDOException $e) {
-            die("ERROR: ".$e->getMessage());
+            die("ERROR: " . $e->getMessage());
         }
     }
 
@@ -123,12 +123,18 @@ class Database
     public function select($where = null, $order = null, $limit = null, $fields = '*')
     {
         //DADOS DA QUERY
-        $where = strlen($where)? 'WHERE '.$where : '';
-        $order = strlen($order)? 'ORDER BY '.$order : '';
-        $limit = strlen($limit)? 'LIMIT '.$limit : '';
+        $where = strlen($where) ? 'WHERE ' . $where : '';
+        $order = strlen($order) ? 'ORDER BY ' . $order : '';
+        $limit = strlen($limit) ? 'LIMIT ' . $limit : '';
         //MONTA A QUERY
-        $query = 'SELECT'.$fields.'FROM '. $this->table.' '.$where.' '.$order.' '.$limit;
+        $query = 'SELECT' . $fields . 'FROM ' . $this->table . ' ' . $where . ' ' . $order . ' ' . $limit;
         //EXECUTA A QUERY
+        return $this->execute($query);
+    }
+
+    public function selectOnly()
+    {
+        $query = "SELECT * FROM dbo.TRN699 WHERE CicIndUpdE = 'N'";
         return $this->execute($query);
     }
 }
