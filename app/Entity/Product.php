@@ -30,7 +30,7 @@ class Product
      * Reserva no estoque geral
      * @var string(s/n)
      */
-    public $upEstoque;
+    public $upEstoque = 'S';
 
     /**
      * Método responsável por retornar todos os produtos do BD
@@ -42,6 +42,17 @@ class Product
     public static function getProducts($where = null, $order = null, $limit = null)
     {
         return (new Database('dbo.TRN699'))->select($where, $order, $limit)
+            ->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+
+    /**
+     * Método responsável por buscar um produto com base na sua flag de reserva
+     * @param string $upEstoque - $CicIndUpdE
+     * @return Product
+     */
+    public static function getProduct($CicCodERP)
+    {
+        return (new Database('dbo.TRN699'))->select('id = '.$CicCodERP)
             ->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 }
