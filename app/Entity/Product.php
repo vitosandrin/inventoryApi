@@ -5,32 +5,117 @@ namespace App\Entity;
 use App\Db\Database;
 use \PDO;
 
+
 class Product
 {
+    /**
+     * Construtor da classe
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Evita que a classe seja clonada
+     */
+    private function __clone()
+    {
+    }
+
+    /**
+     * Destrutor da classe - remove da memória todas as variáveis
+     * definidas na classe
+     */
+    public function __destruct()
+    {
+        foreach ($this as $key => $value) {
+            unset($this->$key);
+        }
+        foreach (array_keys(get_defined_vars()) as $var) {
+            unset(${"$var"});
+        }
+        unset($var);
+    }
 
     /**
      * Id do produto
      * @var string
      */
-    public $id;
+    private $id = "";
 
     /**
      * Nome do produto
      * @var string
      */
-    public $nome;
+    private $nome = "";
 
     /**
      * Quantidade no estoque geral
      * @var int
      */
-    public $estoque;
+    private $estoque = "";
 
     /**
      * Reserva no estoque geral
      * @var string(s/n)
      */
-    public $upEstoque = 'S';
+    private $upEstoque = "";
+
+    /**
+     * Métodos get e set IdProduto
+     * @param string $id
+     * @return string    
+     */
+    public function getID()
+    {
+        return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = strval($id);
+    }
+
+    /**
+     * Métodos get e set NomeProduto
+     * @param string $nome
+     * @return string    
+     */
+    public function getName()
+    {
+        return $this->nome;
+    }
+    public function setName($nome)
+    {
+        $this->nome = strval($nome);
+    }
+
+    /**
+     * Métodos get e set Estoque
+     * @param integer $estoque
+     * @return string    
+     */
+    public function getInventory()
+    {
+        return $this->estoque;
+    }
+    public function setInventory($estoque)
+    {
+        $this->estoque = intval($estoque);
+    }
+
+    /**
+     * Métodos get e set UpEstoque Reservado
+     * @param string $upEstoque
+     * @return string    
+     */
+    public function getReserved()
+    {
+        return $this->upEstoque;
+    }
+    public function setReserved($upEstoque)
+    {
+        $this->estoque = strval($upEstoque);
+    }
 
     /**
      * Método responsável por retornar todos os produtos do BD
@@ -41,8 +126,9 @@ class Product
      */
     public static function getProducts($where = null, $order = null, $limit = null)
     {
+        
         return (new Database('dbo.TRN699'))->select($where, $order, $limit)
-            ->fetchAll(PDO::FETCH_CLASS, self::class);
+            ->fetchAll(PDO::FETCH_CLASS, self::class); 
     }
 
     /**

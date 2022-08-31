@@ -134,9 +134,15 @@ class Database
 
     public function selectOnlyReserved()
     {
-        $query = "SELECT * FROM dbo.TRN699 WHERE CicIndUpdE = 'N'";
+        $query = "SELECT CicCodERP, CicDesCORE, CicQtdEstE, CicIndUpdE FROM dbo.TRN699 WHERE CicIndUpdE = 'S'";
         return $this->execute($query);
     }
+
+    // public function selectOnlyReserved()
+    // {
+    //     $query = "SELECT * FROM dbo.TRN699 WHERE CicIndUpdE = 'S'";
+    //     return $this->execute($query);
+    // }
 
     /**
      * Método responsável por inserir dados no banco
